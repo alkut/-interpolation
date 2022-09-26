@@ -21,6 +21,27 @@ double *FindDistributedDifference(double *functionValue,  int nestSize, double *
     return res;
 }
 
+int LowerBound(double *arr, double x, int n)
+{
+    int l = 0, r = n - 1;
+    int middle;
+    while (r - l > 1)
+    {
+        middle = (l + r) >> 1;
+        if (arr[middle] < x)
+        {
+            l = middle;
+        }
+        else if (arr[middle] > x)
+        {
+            r = middle;
+        }
+        else
+            return middle;
+    }
+    return l;
+}
+
 matrix3 create(int n)
 {
     matrix3 res;

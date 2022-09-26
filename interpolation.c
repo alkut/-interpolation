@@ -2,6 +2,7 @@
 #include "interpolation.h"
 #include "HermitInterpolation.h"
 #include "TestFunctions.h"
+#include "Common.h"
 #include "CubicSpline.h"
 #include <math.h>
 #include <stdio.h>
@@ -112,7 +113,7 @@ double interpolation_calculate(interpolation_ctx ctx, double x)
         return -1;
     }
 
-    int k = floor((double)n * (x - a) / (b - a));
+    int k = LowerBound(ctx->X, x, n);
 	return EvaluatePolynomial(ctx->P[k], x, ctx->X[k]);
 }
 

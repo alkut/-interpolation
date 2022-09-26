@@ -4,6 +4,8 @@
 double *FindFunctionValues(double (*function)(double),  int nestSize, double *nestNode);
 double *FindDistributedDifference(double *functionValue,  int nestSize, double *nestNode);
 
+int LowerBound(double *arr, double x, int n);
+
 typedef struct matrix3
 {
     double *main, *up, *down;
