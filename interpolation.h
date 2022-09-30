@@ -23,6 +23,7 @@ interpolation_ctx interpolation_create(int method, int n, int k,
 				       double a, double b);
 
 double interpolation_calculate(interpolation_ctx ctx, double x);
+double EvaluatePolynomial(Poly P, double x, double xi);
 
 void interpolation_destroy(interpolation_ctx ctx);
 

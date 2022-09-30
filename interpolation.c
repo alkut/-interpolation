@@ -7,8 +7,8 @@
 #include <math.h>
 #include <stdio.h>
 
-const double (*Functions[7])(double) = {f0, f1, f2, f3, f4, f5, f6};
-const double (*Derivatives[7])(double) = {d0, d1, d2, d3, d4, d5, d6};
+double (*Functions[7])(double) = {f0, f1, f2, f3, f4, f5, f6};
+double (*Derivatives[7])(double) = {d0, d1, d2, d3, d4, d5, d6};
 
 struct interpolation_ctx_inner {
     int	method;
@@ -104,16 +104,18 @@ interpolation_ctx interpolation_create(int method, int n, int k,
 
 double interpolation_calculate(interpolation_ctx ctx, double x)
 {
-    int n = ctx->n;
-    double a = ctx->a;
-    double b = ctx->b;
+    int n, k;
+    double a, b;
+    n = ctx->n;
+    a = ctx->a;
+    b = ctx->b;
     if (x<a || x>b)
     {
         fprintf(stderr,"Incorrect input\n");
         return -1;
     }
 
-    int k = LowerBound(ctx->X, x, n);
+    k = LowerBound(ctx->X, x, n);
 	return EvaluatePolynomial(ctx->P[k], x, ctx->X[k]);
 }
 

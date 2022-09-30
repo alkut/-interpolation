@@ -22,46 +22,15 @@ void CubicInterpolation(double (*function)(double), int nestSize, double *nestNo
 
 double *FindD_(double *distributedDifference, double *nestNode, int nestSize)
 {
-    /*double *res = (double *) malloc(nestSize * sizeof(double ));
-    double SumOdd = 0.0, SumEven = 0.0;
-
-    for (int i = 0; i < nestSize - 1; ++i)
-    {
-        if (i & 1)
-            SumOdd += distributedDifference[i];
-        else
-            SumEven += distributedDifference[i];
-    }
-
-    double OddTmp = 0.0, EvenTmp = 0.0;
-
-    res[0] = 3.0 * (SumEven - SumOdd) / (double )(nestSize + 1);
-
-    for (int i = 1; i < nestSize; ++i)
-    {
-        if (i & 1)
-        {
-            EvenTmp += distributedDifference[i - 1];
-            res[i] = 3.0 * (EvenTmp - OddTmp) * (nestSize - i);
-            res[i] -= 3.0 * (i +1) * (SumEven - EvenTmp - SumOdd + OddTmp);
-        }
-        else
-        {
-            OddTmp += distributedDifference[i - 1];
-            res[i] = -3.0 * (EvenTmp - OddTmp) * (nestSize - i);
-            res[i] += 3.0 * (i + 1) * (SumEven - EvenTmp - SumOdd + OddTmp);
-        }
-        res[i] /= nestSize + 1;
-    }
-
-    return res;*/
-    double *res = (double *) malloc(nestSize * sizeof(double ));
+    double *res;
+    matrix3 matrix;
+    res = (double *) malloc(nestSize * sizeof(double ));
     res[0] = 3.0 * distributedDifference[0];
     for (int i = 1; i < nestSize - 1; ++i)
         res[i] = 3.0 * ((nestNode[i+1] - nestNode[i]) * distributedDifference[i-1] +
                 (nestNode[i] - nestNode[i-1]) * distributedDifference[i]);
     res[nestSize - 1] = 3.0 * distributedDifference[nestSize - 2];
-    matrix3 matrix = create(nestSize);
+    matrix = create(nestSize);
 
     matrix.main[0] = 2.0;
     for (int i = 1; i < nestSize - 1; ++i)
@@ -108,9 +77,10 @@ void FindC3_(double *distributedDifference, double *ds, Poly *OutPolynomial, dou
 }
 void FindC4_(double *distributedDifference, double *ds, Poly *OutPolynomial, double *nestNode, int nestSize)
 {
+    double tmp;
     for (int i = 0; i < nestSize - 1; ++i)
     {
-        double tmp = nestNode[i+1] - nestNode[i];
+        tmp = nestNode[i+1] - nestNode[i];
         tmp *= tmp;
         OutPolynomial[i].c4 = (-2.0 * distributedDifference[i] + ds[i] + ds[i+1]) / tmp;
     }
