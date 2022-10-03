@@ -8,7 +8,7 @@ void HermitInterpolation(double (*function)(double), double (*derivative)(double
     double *functionValue = FindFunctionValues(function, nestSize, nestNode);
     double *derivativeValue = FindFunctionValues(derivative, nestSize, nestNode);
     double *distributedDifference = FindDistributedDifference(functionValue, nestSize, nestNode);
-    FindD(derivativeValue, nestSize, distributedDifference[0], distributedDifference[nestSize-2]);
+   // FindD(derivativeValue, nestSize, distributedDifference[0], distributedDifference[nestSize-2]);
     FindC1(functionValue, OutPolynomial, nestSize);
     FindC2(derivativeValue, OutPolynomial, nestSize);
     FindC3(derivativeValue, distributedDifference, OutPolynomial, nestNode, nestSize);
